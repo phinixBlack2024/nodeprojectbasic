@@ -1,14 +1,24 @@
-const userModel = require('../models/user.model.js')
+const userModel = require('../models/user.model.js');
+const { userValidation } = require('../validation/user.validation.js')
+const errorResponse = require('../utils/errorResponse.js')
 
 const list = async (req, res) => {
     const listUser = await userModel.find({});
     res.json({ 'users': listUser })
 };
 const create = async (req, res) => {
-    const { userName } = req.body;
-    const data = { userName: userName }
-    const createUser = await userModel.create(data);
-    res.json({ 'users': createUser })
+    try {
+        const { userName, email } = req.body;
+        // const value = await userValidation(req.body)
+        // if (value) {
+        //     return res.status(400).json(value);
+        // }
+        const data = { userName: userName, email: email }
+        const createUser = await userModel.create(data);
+        res.json({ 'users': createUser })
+    } catch (error) {
+        return console.error(error.message); // Logs "hello world"
+    }
 };
 const edit = async (req, res) => {
     const { userName, id } = req.body;
