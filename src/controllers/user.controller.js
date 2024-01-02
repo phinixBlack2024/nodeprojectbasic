@@ -8,23 +8,26 @@ const list = async (req, res) => {
 };
 const create = async (req, res) => {
     try {
-        const { userName, email } = req.body;
+        const { userName, email, password, status } = req.body;
         // const value = await userValidation(req.body)
         // if (value) {
         //     return res.status(400).json(value);
         // }
-        const data = { userName: userName, email: email }
+        const data = { userName: userName, email: email, password: password, status: status }
         const createUser = await userModel.create(data);
-        res.json({ 'users': createUser })
+        res.json({ 'users': createUser._id })
     } catch (error) {
         return console.error(error.message); // Logs "hello world"
     }
 };
 const edit = async (req, res) => {
-    const { userName, id } = req.body;
+    const { userName, id, email, password, status } = req.body;
     const updateDocument = {
         $set: {
             userName: userName,
+            email: email,
+            password: password,
+            status: status
         },
     };
     const edit = await userModel.updateOne({ _id: id }, updateDocument)
