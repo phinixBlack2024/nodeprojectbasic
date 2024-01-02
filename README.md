@@ -6,3 +6,6 @@ setup a 2024 node project for basic
 
 ## 1 jan util error response 
 1. : create util user validation  
+
+## 2 jan util error response 
+1. : auth rest api login and register
